@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Ağırlık Tolerans Hesaplama</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f2f2f2;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.kutu{
+background:white;
+padding:30px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.2);
+width:320px;
+text-align:center;
+}
+
+h2{
+background:#3c66e3;
+color:white;
+padding:10px;
+border-radius:5px;
+}
+
+input{
+width:100%;
+padding:10px;
+margin-top:10px;
+font-size:16px;
+}
+
+button{
+width:100%;
+padding:12px;
+margin-top:15px;
+font-size:18px;
+background:#3c66e3;
+color:white;
+border:none;
+border-radius:5px;
+}
+
+.sonuc{
+margin-top:20px;
+font-size:18px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="kutu">
+
+<h2>AĞIRLIK TOLERANS</h2>
+
+<input id="ebat" type="number" placeholder="EBAT">
+
+<input id="kilo" type="number" placeholder="KİLO">
+
+<input id="boy" type="number" placeholder="BOY">
+
+<button onclick="hesapla()">HESAPLA</button>
+
+<div class="sonuc">
+<p>NOMİNAL: <span id="nominal">-</span></p>
+<p>KG/M: <span id="kgm">-</span></p>
+<p>AĞIRLIK %: <span id="agirlik">-</span></p>
+</div>
+
+</div>
+
+<script>
+
+let nominalTablo = {
+8:0.395,
+10:0.617,
+12:0.888,
+14:1.210,
+16:1.580,
+18:2.000,
+20:2.470,
+22:2.985,
+24:3.550,
+25:3.850,
+26:4.168,
+28:4.830,
+30:5.550,
+32:6.310,
+36:8.000,
+40:9.860
+};
+
+function hesapla(){
+
+let ebat = document.getElementById("ebat").value;
+let kilo = parseFloat(document.getElementById("kilo").value);
+let boy = parseFloat(document.getElementById("boy").value);
+
+let nominal = nominalTablo[ebat];
+
+if(!nominal){
+alert("EBAT bulunamadı");
+return;
+}
+
+let kgm = kilo / boy;
+
+let agirlik = (kgm / nominal * 100) - 100;
+
+document.getElementById("nominal").innerText = nominal.toFixed(3);
+document.getElementById("kgm").innerText = kgm.toFixed(3);
+document.getElementById("agirlik").innerText = agirlik.toFixed(2) + " %";
+
+}
+
+</script>
+
+</body>
+</html>
